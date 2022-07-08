@@ -1,7 +1,7 @@
 ## ElifTech_AppDelivery
 Delivery Food
 
-#Initiate clone project git clone https://github.com/Alexey-DP/ElifTech_AppDelivery.git
+#Initiate clone project: git clone https://github.com/Alexey-DP/ElifTech_AppDelivery.git
 
 #Initialize dependencies in the directorys client and server: npm i
 
