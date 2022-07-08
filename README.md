@@ -10,3 +10,7 @@ Delivery Food
 #Run app in directory client(PORT: 3000): npm start
 
 The application uses database MongoDB
+
+
+P.S.: I tried React for the first time on this app.
+For 3 days I managed to do only the first part.
