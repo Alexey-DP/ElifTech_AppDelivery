@@ -1,0 +1,37 @@
+@import '../../../style/variables.scss';
+
+.shopping {
+    &__info{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start
+    }
+    &__send{
+        display: flex;
+        margin-top: 25px;
+        font-size: 28px;
+        float: right;
+    }
+    &__send button {
+        margin-left: 50px;
+        font-size: 20px;
+        padding: 7px 28px;
+        border: 2px solid $blue;
+        background-color: $main-color;
+        border-radius: 10px;
+        transition: color, background-color, .5s;
+    }
+    &__send button:hover {
+        transition: color, background-color, .5s;
+        background-color: aquamarine;
+        color: gray;
+    }
+}
+
+@media(max-width: 748px) {
+    .shopping {
+        &__info{
+            flex-direction: column-reverse;
+        }
+    }
+}

@@ -1,0 +1,61 @@
+@import '../../../../style/variables.scss';
+
+.shop {
+    &__list {
+        border: 2px solid $blue;
+        border-radius: 15px;
+        background-color: $grey;
+        padding: 15px;
+        flex: 0 24%;
+    }
+    &__grid{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__item{
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        max-height: 50px;
+        background-color: $light-blue;
+        border: 2px solid $blue;
+        border-radius: 15px;
+        padding: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        transition: background-color .5s;
+        &:hover {
+            transform: scale(1.1);
+            transition: background-color .5s;
+            background-color: $main-color;
+        }
+    }
+    &__item:last-child{
+        margin-bottom: 0;
+    }
+    &__img {
+        margin-right: 10px;
+    }
+    &__item img {
+        width: 35px;
+        height: 35px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    &__item_selected{
+        background-color: $main-color;
+    }
+}
+
+@media(max-width: 748px) {
+    .shop {
+        &__list {
+            flex: none;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+}

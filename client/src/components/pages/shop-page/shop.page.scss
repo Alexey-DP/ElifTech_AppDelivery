@@ -1,0 +1,12 @@
+.shop {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+@media(max-width: 748px) {
+    .shop {
+        flex-direction: column;
+    }
+}
+

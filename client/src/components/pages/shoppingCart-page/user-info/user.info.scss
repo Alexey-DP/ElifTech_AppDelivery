@@ -1,0 +1,35 @@
+@import '../../../../style/variables.scss';
+
+.user {
+    &__list {
+        border: 2px solid $blue;
+        border-radius: 15px;
+        background-color: $grey;
+        padding: 15px;
+        flex: 0 30%;
+    }
+    &__item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+    &__item:last-child {
+        margin-bottom: 0;
+    }
+    &__item input {
+        margin-top: 5px;
+        padding: 10px 5px;
+        border-radius: 10px;
+        border: 2px solid $blue;
+    }
+}
+
+@media(max-width: 748px) {
+    .user {
+        &__list {
+            flex: none;
+            width: 100%;
+        }
+    }
+}

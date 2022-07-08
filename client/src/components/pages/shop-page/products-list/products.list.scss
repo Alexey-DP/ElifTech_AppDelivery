@@ -1,0 +1,90 @@
+@import '../../../../style/variables.scss';
+
+.proucts {
+    &__list {
+        border: 2px solid $blue;
+        border-radius: 15px;
+        background-color: $grey;
+        padding: 15px;
+        flex: 0 74%;
+        max-height: 70vh;
+        overflow: auto;
+    }
+    &__grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        grid-gap: 1rem;
+        justify-items: center
+
+    }
+    &__item{
+        border: 2px solid $blue;
+        border-radius: 15px;
+        width: 200px;
+        overflow: hidden;
+        background-color: rgb(241, 241, 241);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    &__img{
+        width: 100%;
+        height: 150px;
+    }
+    &__img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    &__name{
+        font-size: 24px;
+        font-style: italic;
+        color: $blue;
+        text-align: center;
+        margin-top: 8px;
+    }
+
+    &__price{
+        font-size: 18px;
+        padding: 0 8px;
+        margin-top: 8px;
+        text-align: center;
+    }
+
+    &__btn{
+        padding: 7px 15px;
+        margin: 10px 5px 8px 0px;
+        border-radius: 8px;
+        background-color: $light-blue;
+        color: $blue;
+        font-size: 18px;
+        width: 70%;
+        float: right;
+        border: 1px solid $blue;
+        transition: color, background-color, 0.5s;
+        &:hover {
+            transition: color, background-color, 0.5s;
+            color: $grey;
+            background-color: $blue;
+        }
+    }
+    &__first{
+        text-align: center;
+        font-size: 28px;
+        color: $blue;
+        font-style: italic;
+    }
+    &__added{
+        background-color: rgb(79, 242, 39);
+        color: rgb(51, 50, 50);
+    }
+}
+
+@media(max-width: 748px) {
+    .proucts {
+        &__list {
+            flex: none;
+            width: 100%;
+        }
+    }
+}
