@@ -1,0 +1,28 @@
+@import '../../../style/variables.scss';
+
+.error404 {
+    &__page {
+        max-width: 900px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+    }
+    &__img-block {
+        width: 90%;
+    }
+    &__img-block img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    &__link{
+        margin-top: 25px;
+        font-size: 24px;
+        transition: color 0.5s;
+    }
+    &__link:hover{
+        color: $main-color;
+        transition: color 0.5s;
+    }
+}
