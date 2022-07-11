@@ -1,7 +1,7 @@
 import UserInfo from './user-info/user.info';
 import DeliveryService from '../../../services/delivery.service';
 import OrderInfo from './order-info/order.info';
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Context } from '../context';
 
 import './shoppingCart.page.scss';
@@ -13,17 +13,22 @@ const ShoppingCartPage = () => {
     const [userNumber, setUserNumber] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userAddress, setUserAddress] = useState('Not specified');
+    const [totalSum, setTotalSum] = useState(0);
 
     const deliveryService = new DeliveryService();
 
     const { setOrder } = useContext(Context);
 
-    let totalSum = 0;
+    let fullSum = 0;
     Object.values(totalOrder).forEach(item => {
         if(item) {
-            totalSum += +item.price;
+            fullSum += +item.price;
         }
     })
+
+    useEffect(() => {
+        setTotalSum(fullSum);
+    }, [totalOrder])
 
     const order = {
         name: userName,
@@ -59,7 +64,7 @@ const ShoppingCartPage = () => {
                             setOrder({});
                             setUserNumber('');
                             setUserEmail('');
-                            totalSum = 0;
+                            setTotalSum(0);
                             e.target.innerHTML = 'Order sent';
                             e.target.style.background = 'rgb(34, 247, 19)';
                             e.target.parentElement.parentElement.reset();
