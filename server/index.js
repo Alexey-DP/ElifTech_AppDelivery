@@ -2,6 +2,7 @@ import express from "express";
 import cors from 'cors';
 import mongoose from "mongoose";
 import router from "./router.js";
+const path = require('path');
 
 const PORT = process.env.PORT || 7777;
 const DB_URL = `mongodb+srv://Alexey:12345@delivery.9u5jc.mongodb.net/?retryWrites=true&w=majority`;
@@ -9,7 +10,7 @@ const DB_URL = `mongodb+srv://Alexey:12345@delivery.9u5jc.mongodb.net/?retryWrit
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('static'));
+app.use(express.static(path.resolve(__dirname, 'static')));
 app.use('/api', router);
 
 const startApp = async () => {
