@@ -26,6 +26,18 @@
         background-color: aquamarine;
         color: gray;
     }
+    &__error {
+        font-size: 28px;
+        text-align: end;
+        color: #c61f1f;
+        margin-top: 5px;
+    }
+    &__success {
+        font-size: 28px;
+        text-align: end;
+        color: #2de145;
+        margin-top: 5px;
+    }
 }
 
 @media(max-width: 748px) {

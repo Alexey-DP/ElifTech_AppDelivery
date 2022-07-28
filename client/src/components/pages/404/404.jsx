@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import './404.scss';
-import error404 from '../../../resources/img/404.jpg';
+import error404 from '../../../resources/img/404.svg';
 
 const Page404 = () => {
     return (

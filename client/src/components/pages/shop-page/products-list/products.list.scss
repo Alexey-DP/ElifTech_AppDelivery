@@ -75,8 +75,17 @@
         font-style: italic;
     }
     &__added{
+        padding: 7px 15px;
+        margin: 10px 5px 8px 0px;
+        border-radius: 8px;
+        font-size: 18px;
+        width: 70%;
+        float: right;
+        border: 1px solid $blue;
+        transition: color, background-color, 0.5s;
         background-color: rgb(79, 242, 39);
         color: rgb(51, 50, 50);
+        filter: grayscale(0.5);
     }
 }
 

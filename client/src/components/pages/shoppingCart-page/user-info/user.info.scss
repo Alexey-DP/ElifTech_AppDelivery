@@ -22,6 +22,16 @@
         padding: 10px 5px;
         border-radius: 10px;
         border: 2px solid $blue;
+        -moz-appearance:textfield;
+    }
+    &__item input::-webkit-outer-spin-button,
+    &__item input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    &__error {
+        text-align: center;
+        color: #c61f1f;
+        margin-top: 4px;
     }
 }
 

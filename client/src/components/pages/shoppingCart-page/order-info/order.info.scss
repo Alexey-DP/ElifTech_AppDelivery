@@ -46,9 +46,37 @@
     &__count label {
         margin-top: 8px;
     }
+    &__amount-block {
+        display: flex;
+        align-items: center;
+    }
     &__count input {
+        font-size: 20px;
         padding: 5px 7px;
-        max-width: 80px;
+        max-width: 70px;
+        margin-right: 10px;
+        -moz-appearance:textfield;
+
+    }
+    &__count input::-webkit-outer-spin-button,
+    &__count input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    }
+    &__amount {
+        text-align: center;
+        width: 25px;
+        font-weight: 900;
+        font-size: 16px;
+        padding: 4px 0px;
+        background-color: $main-color;
+        margin-right: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color, color, .5s;
+    }
+    &__amount:hover {
+        background-color: $blue;
+        transition: background-color, color, .5s;
     }
     &__delete {
         text-align: center;

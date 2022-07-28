@@ -3,7 +3,7 @@ import './shop.page.scss';
 import ShopList from './shop-list/shop.list'
 import ProductsList from './products-list/products.list';
 
-const ShopPage = ({addProduct}) => {
+const ShopPage = () => {
 
     const [selectedCompany, setSelectedCompany] = useState(null);
 
@@ -14,7 +14,7 @@ const ShopPage = ({addProduct}) => {
         return (
             <div className="shop">
                 <ShopList onCompanySelected={onCompanySelected}/>
-                <ProductsList companyId={selectedCompany} addProduct={addProduct}/>
+                <ProductsList companyId={selectedCompany}/>
             </div>
         )
 

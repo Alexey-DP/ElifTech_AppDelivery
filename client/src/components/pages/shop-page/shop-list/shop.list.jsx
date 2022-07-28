@@ -55,7 +55,7 @@ const ShopList = (props) => {
                         focusOnItem(i);
                     }}>
                     <div className="shop__img">
-                        <img src={item.logo} alt={item.company} />
+                        <img src={item.logo2} alt={item.company} />
                     </div>
                     <p className="shop__name">{item.company}</p>
                 </li>

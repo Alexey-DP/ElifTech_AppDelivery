@@ -1,5 +1,7 @@
 class DeliveryService {
 
+    serverUrl = 'http://localhost:7777';
+
     getResours = async (url) => {
         let res = await fetch(url);
         if(!res.ok) {
@@ -9,15 +11,15 @@ class DeliveryService {
     }
 
     getAllCompanys = () => {
-        return this.getResours('http://localhost:7777/api/food/');
+        return this.getResours(`${this.serverUrl}/api/food`);
     }
 
     getCompanyById = (id) => {
-        return this.getResours(`http://localhost:7777/api/food/${id}`);
+        return this.getResours(`${this.serverUrl}/api/food/${id}`);
     }
 
     sendOrder = async(body) => {
-        const res = await fetch('http://localhost:7777/api/order', {
+        const res = await fetch(`${this.serverUrl}/api/order`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
