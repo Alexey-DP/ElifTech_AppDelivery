@@ -2,7 +2,10 @@ import express from "express";
 import cors from 'cors';
 import mongoose from "mongoose";
 import router from "./router.js";
-const path = require('path');
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const PORT = process.env.PORT || 7777;
 const DB_URL = `mongodb+srv://Alexey:12345@delivery.9u5jc.mongodb.net/?retryWrites=true&w=majority`;
