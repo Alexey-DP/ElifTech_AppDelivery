@@ -11,6 +11,4 @@ Delivery Food
 
 The application uses database MongoDB
 
-
-P.S.: I tried React for the first time on this app.
-For 3 days I managed to do only the first part.
+### Deploy in Heroku https://delivery-app-dp.herokuapp.com/
