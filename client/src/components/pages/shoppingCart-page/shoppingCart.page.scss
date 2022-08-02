@@ -26,6 +26,15 @@
         background-color: aquamarine;
         color: gray;
     }
+    &__send button:disabled {
+        background-color: #c6c6c6;
+        color: #000;
+    }
+    &__send button:disabled:hover {
+        transition: none;
+        background-color: none;
+        color: #000;
+    }
     &__error {
         font-size: 28px;
         text-align: end;

@@ -9,11 +9,7 @@ const OrderInfo = ({ onTotalOrder }) => {
     const { order } = useContext(Context);
 
     const orderItems = Object.values(order).map((item, index) => {
-        if (item) {
-            return (
-                <Products item={item} key={index} onTotalOrder={onTotalOrder} />
-            )
-        }
+        return item ? <Products item={item} key={index} onTotalOrder={onTotalOrder} /> : null
     })
 
     let res = false;
@@ -40,7 +36,5 @@ const NoProducts = () => {
         <p className='order__no-proucts'>Add Products</p>
     )
 }
-
-
 
 export default OrderInfo;

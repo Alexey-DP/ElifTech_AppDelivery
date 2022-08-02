@@ -1,10 +1,12 @@
-import UserInfo from './user-info/user.info';
-import DeliveryService from '../../../services/delivery.service';
-import OrderInfo from './order-info/order.info';
-import { useState, useContext, useEffect } from "react";
-import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import { useState, useContext, useEffect } from "react";
 import { Context } from '../context';
+import { Helmet } from 'react-helmet';
+import UserInfo from './user-info/user.info';
+import useDeliveryService from '../../../services/delivery.service';
+import OrderInfo from './order-info/order.info';
+import ErrorBoundary from '../../error-boundary/error-boundary';
 
 import './shoppingCart.page.scss';
 
@@ -12,12 +14,9 @@ const ShoppingCartPage = () => {
 
     const [totalOrder, setTotalOrder] = useState({});
     const [totalSum, setTotalSum] = useState(0);
-    const [hasOrder, setHasOrder] = useState(false);
+    const [orderStatus, setOrderStatus] = useState('waiting');
 
-    const [sendForn, setSendForm] = useState(false);
-    const [errorForm, setErrorForm] = useState(false);
-
-    const deliveryService = new DeliveryService();
+    const { sendOrder } = useDeliveryService();
 
     const { setOrder } = useContext(Context);
 
@@ -30,10 +29,11 @@ const ShoppingCartPage = () => {
 
     useEffect(() => {
         setTotalSum(fullSum);
+        // eslint-disable-next-line
     }, [totalOrder])
 
-    const sendOrder = (values, onSubmitProps) => {
-        setHasOrder(false);
+    const goSendOrder = (values, onSubmitProps) => {
+        setOrderStatus('waiting')
         const now = new Date();
         const order = {
             ...values,
@@ -43,74 +43,79 @@ const ShoppingCartPage = () => {
         }
 
         if (Object.values(totalOrder).every(el => el === null)) {
-            setHasOrder(true);
+            setOrderStatus('noGoods')
             return;
         }
 
-        deliveryService.sendOrder(order)
+        sendOrder(order)
             .then(res => {
                 setOrder({});
                 setTotalSum(0);
-                setSendForm(true);
+                setOrderStatus('success');
                 setTotalOrder({});
                 onSubmitProps.setSubmitting(false);
                 onSubmitProps.resetForm();
 
             })
             .catch(() => {
-                setErrorForm(true);
+                setOrderStatus('error')
             })
             .finally(() => {
                 setTimeout(() => {
-                    setHasOrder(false);
-                    setSendForm(false);
-                    setErrorForm(false);
+                    setOrderStatus('waiting')
                 }, 5000)
             })
     }
 
-
     return (
-        <Formik
-            initialValues={{
-                name: '',
-                email: '',
-                number: '',
-                address: ''
-            }}
-            validationSchema={Yup.object({
-                name: Yup.string()
-                    .min(3, 'Must be at least 3 letters')
-                    .required('Enter your name'),
-                email: Yup.string()
-                    .email('Wrong email')
-                    .required('Enter your email'),
-                number: Yup.string()
-                    .min(9, 'Must be at least 10 digits')
-                    .required('Required field'),
-                address: Yup.string()
-            })}
-            onSubmit={(values, onSubmitProps) => sendOrder(values, onSubmitProps)}>
-            <Form id='sendorder' className="shopping__card">
-                <div className="shopping__info">
-                    <UserInfo />
-                    <OrderInfo onTotalOrder={setTotalOrder} />
-                </div>
-                {hasOrder ? <div className="shopping__error">Сhoose tasty food</div> : null}
-                {sendForn ? <div className="shopping__success">Your order has been sent, you will be contacted soon</div> : null}
-                {errorForm ? <div className="shopping__error">Something went wrong, try again</div> : null}
-                <div className="shopping__send">
-                    <p>Total price: <span>{totalSum}</span>$</p>
-                    <button
-                        disabled={sendForn || errorForm ? true : false}
-                        type="submit"
-                        form='sendorder'>
-                        Send Order
-                    </button>
-                </div>
-            </Form>
-        </Formik>
-
+        <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Shopping cart of delivery food" />
+                <title>Shopping cart</title>
+            </Helmet>
+            <Formik
+                initialValues={{
+                    name: '',
+                    email: '',
+                    number: '',
+                    address: ''
+                }}
+                validationSchema={Yup.object({
+                    name: Yup.string()
+                        .min(3, 'Must be at least 3 letters')
+                        .required('Enter your name'),
+                    email: Yup.string()
+                        .email('Wrong email')
+                        .required('Enter your email'),
+                    number: Yup.string()
+                        .required('Required field'),
+                    address: Yup.string()
+                })}
+                onSubmit={(values, onSubmitProps) => goSendOrder(values, onSubmitProps)}>
+                <Form id='sendorder' className="shopping__card">
+                    <div className="shopping__info">
+                        <UserInfo />
+                        <ErrorBoundary>
+                            <OrderInfo onTotalOrder={setTotalOrder} />
+                        </ErrorBoundary>
+                    </div>
+                    {orderStatus === 'noGoods' ? <div className="shopping__error">Сhoose tasty food</div> : null}
+                    {orderStatus === 'success' ? <div className="shopping__success">Your order has been sent, you will be contacted soon</div> : null}
+                    {orderStatus === 'error' ? <div className="shopping__error">Something went wrong, try again</div> : null}
+                    <div className="shopping__send">
+                        <p>Total price: <span>{totalSum}</span>$</p>
+                        <button
+                            disabled={orderStatus === 'success' || orderStatus === 'error' ? true : false}
+                            type="submit"
+                            form='sendorder'>
+                            Send Order
+                        </button>
+                    </div>
+                </Form>
+            </Formik>
+        </>
     )
 };
 

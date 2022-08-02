@@ -6,6 +6,7 @@ const ProductCard = ({card}) => {
     const {order, setOrder} = useContext(Context);
     const [isInOrder, setIsInOrder] = useState(false);
 
+    // eslint-disable-next-line
     useEffect(() => {
         order[card.dish] ? setIsInOrder(true) : setIsInOrder(false);
     })

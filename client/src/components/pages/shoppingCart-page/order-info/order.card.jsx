@@ -16,6 +16,7 @@ const Products = ({ item, onTotalOrder }) => {
                 }
             };
         })
+    // eslint-disable-next-line
     }, []);
 
     const changeTotalOrder = (elem) => {

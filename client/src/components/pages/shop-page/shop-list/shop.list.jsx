@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import DeliveryService from '../../../../services/delivery.service';
+import useDeliveryService from '../../../../services/delivery.service';
 import Spinner from '../../../spinner/spinner';
 import ErrorMessage from '../../../error-message/error.message';
 
@@ -9,31 +9,23 @@ import './shop.list.scss';
 const ShopList = (props) => {
 
     const [companyList, setCompanyList] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
 
-    const deliveryService = new DeliveryService();
+    const { operation, getAllCompanys, } = useDeliveryService();
 
     useEffect(() => {
         onRequest();
+    // eslint-disable-next-line
     }, [])
 
     const onRequest = () => {
-        deliveryService.getAllCompanys()
+        getAllCompanys()
             .then(onCompanyListLoaded)
-            .catch(onError)
     }
 
     const onCompanyListLoaded = (companyList) => {
         setCompanyList(companyList);
-        setLoading(false);
     }
 
-
-    const onError = () => {
-        setError(true)
-        setLoading(false)
-    }
 
     const itemRefs = useRef([]);
 
@@ -69,15 +61,14 @@ const ShopList = (props) => {
     }
 
     const items = renderItems(companyList);
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error) ? items : null;
+    const errorMessage = operation === 'error' ? <ErrorMessage/> : null;
+    const spinner = operation === 'loading' ? <Spinner/> : null;
 
     return (
         <div className="shop__list">
             {errorMessage}
             {spinner}
-            {content}
+            {items}
         </div>
     )
 }

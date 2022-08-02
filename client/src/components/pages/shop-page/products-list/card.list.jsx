@@ -1,8 +1,8 @@
 import ProductCard from './product.card';
 
-const CardList = ({productsList}) => {
+const CardList = ({data}) => {
 
-    const items = productsList.products.map((item) => {
+    const items = data.products.map((item) => {
         return (
             <ProductCard key={item.dish} card={item}/>
         )

@@ -1,34 +1,37 @@
-class DeliveryService {
+import {
+    useHttp
+} from './http.hook';
 
-    serverUrl = 'http://localhost:7777';
+const useDeliveryService = () => {
 
-    getResours = async (url) => {
-        let res = await fetch(url);
-        if(!res.ok) {
-            throw new Error (`Could not find ${url}, status ${res.status}`);
-        }
-        return await res.json();
-    }
+    const {
+        request,
+        clearError,
+        operation,
+        setOperation
+    } = useHttp();
 
-    getAllCompanys = () => {
-        return this.getResours(`${this.serverUrl}/api/food`);
-    }
+    const serverUrl = 'http://localhost:7777';
 
-    getCompanyById = (id) => {
-        return this.getResours(`${this.serverUrl}/api/food/${id}`);
-    }
+    const getAllCompanys = async () =>
+        await request(`${serverUrl}/api/food`);
 
-    sendOrder = async(body) => {
-        const res = await fetch(`${this.serverUrl}/api/order`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
 
-        return await res.json();
-    }
+    const getCompanyById = async (id) =>
+        await request(`${serverUrl}/api/food/${id}`);
+
+
+    const sendOrder = async (body) =>
+        await request(`${serverUrl}/api/order`, "POST", JSON.stringify(body));
+
+    return {
+        clearError,
+        operation,
+        setOperation,
+        getAllCompanys,
+        getCompanyById,
+        sendOrder
+    };
 }
 
-export default DeliveryService;
+export default useDeliveryService;
