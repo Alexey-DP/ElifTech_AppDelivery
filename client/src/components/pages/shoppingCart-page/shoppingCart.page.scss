@@ -1,6 +1,9 @@
 @import '../../../style/variables.scss';
 
 .shopping {
+    &__card {
+        padding-bottom: 30px;
+    }
     &__info{
         display: flex;
         justify-content: space-between;
@@ -34,6 +37,33 @@
         transition: none;
         background-color: none;
         color: #000;
+    }
+    &__address-text{
+        font-style: italic;
+        font-size: 16px;
+        margin: 10px 0;
+        color: #2639e4;
+    }
+    &__find-address {
+        position: relative;
+        & label {
+            font-size: 16px;
+            font-style: italic;
+        }
+        & input {
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+
+    }
+    &__address-list{
+        position: absolute;
+        & li {
+            padding: 3px 5px 3px 5px;
+            background-color: #e4e4e4;
+            border: 1px solid #1626b6;
+            cursor: pointer;
+        }
     }
     &__error {
         font-size: 28px;

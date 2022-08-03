@@ -11,7 +11,7 @@ const useDeliveryService = () => {
         setOperation
     } = useHttp();
 
-    const serverUrl = 'http://localhost:7777';
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     const getAllCompanys = async () =>
         await request(`${serverUrl}/api/food`);

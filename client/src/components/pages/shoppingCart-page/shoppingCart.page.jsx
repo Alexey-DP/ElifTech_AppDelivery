@@ -14,11 +14,17 @@ const ShoppingCartPage = () => {
 
     const [totalOrder, setTotalOrder] = useState({});
     const [totalSum, setTotalSum] = useState(0);
+    const [address, setAddress] = useState('Take your address');
+
     const [orderStatus, setOrderStatus] = useState('waiting');
 
     const { sendOrder } = useDeliveryService();
 
     const { setOrder } = useContext(Context);
+
+    const updateAddress = (address) => {
+        setAddress(address);
+    }
 
     let fullSum = 0;
     Object.values(totalOrder).forEach(item => {
@@ -29,14 +35,14 @@ const ShoppingCartPage = () => {
 
     useEffect(() => {
         setTotalSum(fullSum);
-        // eslint-disable-next-line
-    }, [totalOrder])
+    }, [fullSum])
 
     const goSendOrder = (values, onSubmitProps) => {
         setOrderStatus('waiting')
         const now = new Date();
         const order = {
             ...values,
+            address,
             order: totalOrder,
             totalPrice: totalSum,
             date: now
@@ -80,7 +86,6 @@ const ShoppingCartPage = () => {
                     name: '',
                     email: '',
                     number: '',
-                    address: ''
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string()
@@ -91,12 +96,13 @@ const ShoppingCartPage = () => {
                         .required('Enter your email'),
                     number: Yup.string()
                         .required('Required field'),
-                    address: Yup.string()
                 })}
                 onSubmit={(values, onSubmitProps) => goSendOrder(values, onSubmitProps)}>
                 <Form id='sendorder' className="shopping__card">
                     <div className="shopping__info">
-                        <UserInfo />
+                        <ErrorBoundary>
+                            <UserInfo address={address} setAddress={updateAddress} />
+                        </ErrorBoundary>
                         <ErrorBoundary>
                             <OrderInfo onTotalOrder={setTotalOrder} />
                         </ErrorBoundary>

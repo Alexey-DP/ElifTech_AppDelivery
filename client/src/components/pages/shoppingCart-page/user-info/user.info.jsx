@@ -1,8 +1,9 @@
-import './user.info.scss';
 import TextInput from './textinput';
+import ErrorBoundary from '../../../error-boundary/error-boundary';
+import MyGoogleMapWrapper from '../google-maps/my.google.map';
+import './user.info.scss';
 
-
-const UserInfo = () => {
+const UserInfo = ({address, setAddress}) => {
 
     return (
         <div className="user__list">
@@ -18,7 +19,7 @@ const UserInfo = () => {
                     />
                 </li>
                 <li className="user__item">
-                <TextInput
+                    <TextInput
                         label="Your phone:"
                         id="number"
                         name="number"
@@ -28,7 +29,7 @@ const UserInfo = () => {
                     />
                 </li>
                 <li className="user__item">
-                <TextInput
+                    <TextInput
                         label="Your email:"
                         id="email"
                         name="email"
@@ -38,18 +39,15 @@ const UserInfo = () => {
                     />
                 </li>
                 <li className="user__item">
-                <TextInput
-                        label="Your address:"
-                        id="address"
-                        name="address"
-                        type="text"
-                        placeholder="Enter your address"
-                    />
+                    <h4>Your address:</h4>
+                    <p className='shopping__address-text'>{address}</p>
                 </li>
             </ul>
+            <ErrorBoundary>
+                <MyGoogleMapWrapper setAddress={setAddress}/>
+            </ErrorBoundary>
         </div>
     )
-
 }
 
 export default UserInfo;
