@@ -11,4 +11,4 @@ Delivery Food
 
 The application uses database MongoDB
 
-### Deploy in Heroku https://delivery-app-dp.herokuapp.com/
+### Deploy https://fanciful-cupcake-0cef34.netlify.app/
