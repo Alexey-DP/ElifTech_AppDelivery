@@ -20,14 +20,15 @@
         font-size: 20px;
         padding: 7px 28px;
         border: 2px solid $blue;
-        background-color: $main-color;
+        color: $light-blue;
+        background-color: $blue;
         border-radius: 10px;
         transition: color, background-color, .5s;
     }
     &__send button:hover {
         transition: color, background-color, .5s;
-        background-color: aquamarine;
-        color: gray;
+        background-color: $light-blue;
+        color: $main-color;
     }
     &__send button:disabled {
         background-color: #c6c6c6;
@@ -58,7 +59,12 @@
     }
     &__address-list{
         position: absolute;
+        padding: 10px 0;
+        margin-bottom: 10px;
+        overflow: hidden;
+        font-size: 16px;
         & li {
+            overflow: hidden;
             padding: 3px 5px 3px 5px;
             background-color: #e4e4e4;
             border: 1px solid #1626b6;
