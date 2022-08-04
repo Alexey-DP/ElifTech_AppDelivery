@@ -1,26 +1,19 @@
-import { useState } from 'react';
-import './shop.page.scss';
 import ShopList from './shop-list/shop.list'
 import ProductsList from './products-list/products.list';
 import ErrorBoundary from '../../error-boundary/error-boundary';
 
+import './shop.page.scss';
+
 const ShopPage = () => {
-
-    const [selectedCompany, setSelectedCompany] = useState(null);
-
-    const onCompanySelected = (id) => {
-        setSelectedCompany(id);
-    }
 
     return (
         <div className="shop">
             <ErrorBoundary>
-                <ShopList onCompanySelected={onCompanySelected} />
+                <ShopList />
             </ErrorBoundary>
             <ErrorBoundary>
-                <ProductsList companyId={selectedCompany} />
+                <ProductsList />
             </ErrorBoundary>
-
         </div>
     )
 

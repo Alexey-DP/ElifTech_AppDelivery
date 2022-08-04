@@ -1,26 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import CardList from './card.list';
 import useDeliveryService from '../../../../services/delivery.service';
 import setContent from '../../../../utils/setContent';
+import {ShopListContext} from '../../context';
 
 import './products.list.scss'
 
-const ProductsList = ({companyId}) => {
+const ProductsList = () => {
 
     const [productsList, setProductsList] = useState(null);
-
     const { operation, getCompanyById, } = useDeliveryService();
+
+    const { shopListContext } = useContext(ShopListContext);
 
     useEffect(() => {
         updateProductList();
     // eslint-disable-next-line
-    }, [companyId])
+    }, [shopListContext.companyId])
 
     const updateProductList = () => {
-        if (!companyId) {
+        if (!shopListContext.companyId) {
             return
         }
-        getCompanyById(companyId)
+        getCompanyById(shopListContext.companyId)
             .then(onProductsListLoaded);
     }
 
@@ -30,7 +32,7 @@ const ProductsList = ({companyId}) => {
 
     return (
         <div className="proucts__list">
-            {setContent(operation, FirstMessage, CardList, productsList)}
+            {shopListContext.companyId ? setContent(operation, FirstMessage, CardList, productsList) : <FirstMessage/>}
         </div>
     )
 }

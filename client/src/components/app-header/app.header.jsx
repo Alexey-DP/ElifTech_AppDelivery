@@ -11,13 +11,13 @@ const AppHeader = () => {
                     <li><NavLink
                         end
                         to="/"
-                        style={({isActive}) => ({color: isActive ? '#2aa1e1' : ""})}
+                        style={({isActive}) => ({color: isActive ? '#235ef4' : ""})}
                         >Shop</NavLink></li>
                     /
                     <li><NavLink
                         end
                         to="/cart"
-                        style={({isActive}) => ({color: isActive ? '#2aa1e1' : ""})}
+                        style={({isActive}) => ({color: isActive ? '#235ef4' : ""})}
                         >Shopping cart</NavLink></li>
                 </ul>
             </nav>

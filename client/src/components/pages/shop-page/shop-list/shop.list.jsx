@@ -1,20 +1,25 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useContext } from "react";
 import useDeliveryService from '../../../../services/delivery.service';
 import Spinner from '../../../spinner/spinner';
 import ErrorMessage from '../../../error-message/error.message';
+import ShowAllCompanys from "./show.all.companys";
+import { Context, ShopListContext } from '../../context';
 
 import './shop.list.scss';
 
 
-const ShopList = (props) => {
+const ShopList = () => {
 
-    const [companyList, setCompanyList] = useState([]);
+    const { setOrder } = useContext(Context);
+    const { shopListContext, setShopListContext } = useContext(ShopListContext);
 
     const { operation, getAllCompanys, } = useDeliveryService();
 
     useEffect(() => {
-        onRequest();
-    // eslint-disable-next-line
+        if (shopListContext.firstRender) {
+            onRequest();
+        }
+        // eslint-disable-next-line
     }, [])
 
     const onRequest = () => {
@@ -23,28 +28,27 @@ const ShopList = (props) => {
     }
 
     const onCompanyListLoaded = (companyList) => {
-        setCompanyList(companyList);
-    }
-
-
-    const itemRefs = useRef([]);
-
-    const focusOnItem = (id) => {
-        itemRefs.current.forEach(item => item.classList.remove('shop__item_selected'));
-        itemRefs.current[id].classList.add('shop__item_selected');
-        itemRefs.current[id].focus();
+        setShopListContext(list => {
+            return { ...list, companyList, firstRender: false };
+        });
     }
 
     function renderItems(arr) {
         const items = arr.map((item, i) => {
             return (
                 <li
-                    className="shop__item"
+                    className={shopListContext.shopSelected ? "shop__item shop__item_selected" : "shop__item"}
                     key={item._id}
-                    ref={el => itemRefs.current[i] = el}
                     onClick={() => {
-                        props.onCompanySelected(item._id);
-                        focusOnItem(i);
+                        setShopListContext(list => {
+                            return {
+                                ...list,
+                                companyList: [item],
+                                isShowAllButton: true,
+                                shopSelected: true,
+                                companyId: item._id
+                            }
+                        });
                     }}>
                     <div className="shop__img">
                         <img src={item.logo2} alt={item.company} />
@@ -60,15 +64,28 @@ const ShopList = (props) => {
         )
     }
 
-    const items = renderItems(companyList);
-    const errorMessage = operation === 'error' ? <ErrorMessage/> : null;
-    const spinner = operation === 'loading' ? <Spinner/> : null;
+    const items = renderItems(shopListContext.companyList);
+    const errorMessage = operation === 'error' ? <ErrorMessage /> : null;
+    const spinner = operation === 'loading' ? <Spinner /> : null;
 
     return (
-        <div className="shop__list">
+        <div className={"shop__list"}>
             {errorMessage}
-            {spinner}
             {items}
+            {spinner}
+            {shopListContext.isShowAllButton ? <ShowAllCompanys
+                showAll={() => {
+                    onRequest();
+                    setShopListContext(list => {
+                        return {
+                            ...list,
+                            isShowAllButton: !list.isShowAllButton,
+                            shopSelected: false,
+                            companyId: null
+                        }
+                    });
+                    setOrder({});
+                }} /> : null}
         </div>
     )
 }

@@ -48,6 +48,23 @@
     &__item_selected{
         background-color: $main-color;
     }
+    &__show-all {
+        text-align: center;
+        margin-top: 20px;
+    }
+    &__show-all-buttom {
+        padding: 10px 5px;
+        border-radius: 15px;
+        font-size: 18px;
+        color: $light-blue;
+        background-color: $blue;
+        transition: color, background-color, .5s;
+    }
+    &__show-all-buttom:hover {
+        background-color: $main-color;
+        color: #000;
+        transition: color, background-color, .5s;
+    }
 }
 
 @media(max-width: 748px) {

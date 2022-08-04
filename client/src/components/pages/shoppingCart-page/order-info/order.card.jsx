@@ -74,13 +74,13 @@ const Products = ({ item, onTotalOrder }) => {
                     className="order__delete"
                     onClick={() => {
                         setOrder(order => {
-                            return { ...order, [item.name]: null };
+                            delete order[item.name];
+                            return { ...order };
                         })
 
                         onTotalOrder((order) => {
-                            return {
-                                ...order, [item.name]: null
-                            };
+                            delete order[item.name];
+                            return { ...order };
                         })
                     }}
                 >Delete</div>
