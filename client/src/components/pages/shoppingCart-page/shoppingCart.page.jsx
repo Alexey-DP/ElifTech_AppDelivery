@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import { useState, useContext, useEffect } from "react";
 import { Context } from '../context';
 import { Helmet } from 'react-helmet';
+import MyCaptcha from './reCaptcha/myCaptcha'
 import UserInfo from './user-info/user.info';
 import useDeliveryService from '../../../services/delivery.service';
 import OrderInfo from './order-info/order.info';
@@ -15,6 +16,7 @@ const ShoppingCartPage = () => {
     const [totalOrder, setTotalOrder] = useState({});
     const [totalSum, setTotalSum] = useState(0);
     const [address, setAddress] = useState('Take your address');
+    const [verified, setVerified] = useState(false);
 
     const [orderStatus, setOrderStatus] = useState('waiting');
 
@@ -110,10 +112,18 @@ const ShoppingCartPage = () => {
                     {orderStatus === 'noGoods' ? <div className="shopping__error">Сhoose tasty food</div> : null}
                     {orderStatus === 'success' ? <div className="shopping__success">Your order has been sent, you will be contacted soon</div> : null}
                     {orderStatus === 'error' ? <div className="shopping__error">Something went wrong, try again</div> : null}
+
+                    <MyCaptcha
+                    verified={verified}
+                    setVerified={setVerified}
+                    setOrderStatus={setOrderStatus}/>
+
                     <div className="shopping__send">
                         <p>Total price: <span>{totalSum}</span>$</p>
                         <button
-                            disabled={orderStatus === 'success' || orderStatus === 'error' ? true : false}
+                            disabled={orderStatus === 'success' ||
+                            orderStatus === 'error' ||
+                            !verified ? true : false}
                             type="submit"
                             form='sendorder'>
                             Send Order

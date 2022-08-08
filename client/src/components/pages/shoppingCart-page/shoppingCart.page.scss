@@ -73,7 +73,13 @@
             cursor: pointer;
         }
     }
+    &__captcha {
+        display: flex;
+        justify-content: end;
+        margin-top: 10px;
+    }
     &__error {
+        font-weight: 600;
         font-size: 28px;
         text-align: end;
         color: #c61f1f;
@@ -82,8 +88,9 @@
     &__success {
         font-size: 28px;
         text-align: end;
-        color: #2de145;
+        color: #0ea522;
         margin-top: 5px;
+        font-weight: 600;
     }
 }
 
